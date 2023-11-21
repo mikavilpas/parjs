@@ -9,6 +9,9 @@ describe("the tuple example", () => {
         it("can parse the example", () => {
             const result = parser.parse(successInput);
             expect(result).toBeSuccessful();
+
+            expect(result.value.separators).toEqual([",", ","]);
+            expect(result.value.map(a => a)).toEqual([1, 2, 3]);
         });
     });
 });
