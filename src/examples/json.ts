@@ -141,14 +141,16 @@ function astToObject(obj: JsonValue): unknown {
     }
 }
 
-const result = pJsonValue.parse(`{"a" : 2, 
+export function run() {
+    const result = pJsonValue.parse(`{"a" : 2, 
 
 
 "b\\"" : 
 44325, "z" : "hi!", "a" : true,
  "array" : ["hi", 1, {"a" :    "b\\"" }, [], {}]}`);
-if (result.kind !== ResultKind.Ok) {
-    console.log(visualizeTrace(result.trace));
-} else {
-    console.log(astToObject(result.value));
+    if (result.kind !== ResultKind.Ok) {
+        console.log(visualizeTrace(result.trace));
+    } else {
+        console.log(astToObject(result.value));
+    }
 }

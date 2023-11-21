@@ -59,12 +59,21 @@ describe("trace", () => {
 
         const res = parser.parse(input) as ParjsFailure;
         const { trace } = res;
-        console.log(
-            "EXAMPLE ERROR OUTPUT",
-            visualizeTrace.configure({
+
+        it("looks great in the console", () => {
+            const output = visualizeTrace.configure({
                 lineNumbers: true
-            })(trace)
-        );
+            })(trace);
+            expect(output).toMatchInlineSnapshot(`
+                "Hard failure at Ln 9 Col 5
+                8 | 
+                9 | aaaa
+                        ^expecting 'a'
+                Stack: string < exactly < then
+                "
+            `);
+        });
+
         it("correct position", () => {
             expect(trace.position).toBe(16);
         });
