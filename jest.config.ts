@@ -2,7 +2,6 @@ import path from "path";
 import { Config } from "jest";
 
 const config: Config = {
-    preset: "ts-jest",
     // this is toggled on in the CI, but is off by default because it's
     // distracting and a bit slower
     collectCoverage: false,
