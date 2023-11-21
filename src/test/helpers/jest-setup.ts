@@ -1,6 +1,8 @@
 import { expect } from "@jest/globals";
 import type { MatcherFunction, SyncExpectationResult } from "expect";
 import {
+    ParjsFailure,
+    ParjsResult,
     ResultKind,
     isParjsFailure,
     isParjsResult,
@@ -80,9 +82,33 @@ const toBeFailure: MatcherFunction<[kind?: string]> = function (
     };
 };
 
+type AssertionFunction = (failure: ParjsFailure) => void;
+
+const toBeFailureMatching: MatcherFunction<[isExpected: AssertionFunction]> = function (
+    actual: unknown,
+    isExpected: AssertionFunction
+): SyncExpectationResult {
+    const actualString = JSON.stringify(actual);
+    if (!isParjsFailure(actual)) {
+        return fail(
+            `expected the parse result ${actualString} to be a ParjsFailure instance, but its type is '${typeof actual}'`
+        );
+    }
+
+    isExpected(actual);
+
+    return {
+        pass: true,
+        message() {
+            return `toBeFailureMatching succeeded 👍`;
+        }
+    };
+};
+
 expect.extend({
     toBeSuccessful,
-    toBeFailure
+    toBeFailure,
+    toBeFailureMatching
 });
 
 declare global {
@@ -90,6 +116,7 @@ declare global {
         interface Matchers<R> {
             toBeSuccessful<T>(value?: T): R;
             toBeFailure(kind?: ResultKind): R;
+            toBeFailureMatching(isExpected: (failure: ParjsFailure) => void): R;
         }
     }
 }
