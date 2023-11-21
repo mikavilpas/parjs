@@ -124,7 +124,7 @@ describe("not combinator", () => {
     });
 });
 
-describe("soft combinator", () => {
+describe("recover combinator", () => {
     const parser = string("a").pipe(
         then("b"),
         stringify(),
