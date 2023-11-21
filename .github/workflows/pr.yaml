@@ -30,7 +30,7 @@ jobs:
             - name: lint:check
               run: yarn lint:check
             - name: test
-              run: yarn test
+              run: yarn test:coverage
             - name: code coverage
               uses: coverallsapp/github-action@master
               with:

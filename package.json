@@ -27,7 +27,8 @@
     "description": "A parser-combinator library for JavaScript.",
     "main": "dist/lib/index.js",
     "scripts": {
-        "test": "jest --coverage",
+        "test": "jest",
+        "test:coverage": "jest --coverage",
         "build": "rm -rf dist/ && tsc",
         "docs": "typedoc --out docs",
         "do-publish": "yarn run build; node dist/publish.js; cd .tmp/publish; yarn publish",
