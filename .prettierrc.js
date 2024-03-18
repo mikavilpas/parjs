@@ -12,5 +12,5 @@ module.exports = {
             }
         }
     ],
-    plugins: ["prettier-plugin-organize-imports"]
+    plugins: [require.resolve("prettier-plugin-organize-imports")]
 };
